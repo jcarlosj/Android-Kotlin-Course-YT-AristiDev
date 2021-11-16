@@ -1,5 +1,6 @@
 package com.github.jcarlosj
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +22,12 @@ class MainActivity : AppCompatActivity() {
     fun checkValue() {
         var etName = findViewById<EditText>( R.id.etName )
         if( etName.text.isNotEmpty() ) {
+            val intent = Intent( this, GreetingActivity::class.java )
+
             Log.d( "MainActivity","Envia datos a un nuevo Activity" )
+            intent.putExtra( "INTENT_NAME", etName.text )
+            startActivity( intent )
+
         }
         else {
             showErrorName()
