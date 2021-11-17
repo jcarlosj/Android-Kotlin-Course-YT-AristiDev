@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class HeroAdapter(private val superheroes: List<SuperHero>) : RecyclerView.Adapter<HeroAdapter.ViewHolder>() {
+
+    private val tag: String = "HeroAdapter"
 
     /**
      * Proporcione una referencia al tipo de vistas que está utilizando (ViewHolder personalizado).
@@ -26,7 +29,13 @@ class HeroAdapter(private val superheroes: List<SuperHero>) : RecyclerView.Adapt
             tvRealName = view.findViewById( R.id.tvRealName )
             tvSuperHeroName = view.findViewById( R.id.tvSuperHeroName )
             tvPublisher = view.findViewById( R.id.tvPublisher )
+
+            view .setOnClickListener {
+                Toast.makeText( view.context, "Has seleccionado a ${ tvSuperHeroName.text }", Toast.LENGTH_LONG ) .show();
+                Log.d( "ViewHolder", "Has seleccionado a ${ tvSuperHeroName.text }" )
+            }
         }
+
     }
 
     // Crear nuevas vistas (invocadas por el administrador de diseño)
@@ -49,7 +58,7 @@ class HeroAdapter(private val superheroes: List<SuperHero>) : RecyclerView.Adapt
         viewHolder.tvSuperHeroName.text = ItemsViewModel.superHeroName
         viewHolder.tvPublisher.text = ItemsViewModel.publisher
 
-        Log.d( "HeroAdapter", ItemsViewModel.urlImage )
+        Log.d( tag, ItemsViewModel.urlImage )
 
         Picasso.get().load( ItemsViewModel.urlImage ).into( viewHolder.ivHero )
     }
